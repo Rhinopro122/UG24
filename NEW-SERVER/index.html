@@ -422,6 +422,45 @@ body {
             height: 500px;
             border: none;
         }
+
+        /* Styling for the box */
+        .share-box {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 200px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            z-index: 1000;
+        }
+
+        /* Styling for the title */
+        .share-box h3 {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Styling for the link */
+        .share-box a {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .share-box a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -513,7 +552,12 @@ body {
             <span data-index="6"></span>
         </div>
     </section>
-        
+
+<div class="share-box">
+    <h3>Share UG24</h3>
+    <a href="https://tinyurl.com/UG24-V2" target="_blank">tinyurl.com/UG24-V2</a>
+</div>
+    
 <!-- New 16:9 landscape rows for Apps -->
 <section>
     <h2>Featured Games</h2>
