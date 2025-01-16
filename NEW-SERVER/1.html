@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Video Test</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            background-color: #000;
+        }
+        #video-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <button id="back-button" onclick="window.location.href='index.html';">Back to Home</button>
+        <iframe src="https://drive.google.com/file/d/1kPXndrE945d_14Mr5SSRzS2VjTdIIe36/preview" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        let backButton = document.getElementById('back-button');
+        let timeout;
+
+        function hideButton() {
+            backButton.style.opacity = '0';
+        }
+
+        function showButton() {
+            backButton.style.opacity = '1';
+            clearTimeout(timeout);
+            timeout = setTimeout(hideButton, 5000);
+        }
+
+        document.addEventListener('mousemove', showButton);
+        document.addEventListener('touchstart', showButton);
+
+        // Initial hide after 5 seconds
+        timeout = setTimeout(hideButton, 5000);
+    </script>
+</body>
+</html>
