@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3RSBT49V7D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3RSBT49V7D');
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Protected Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    .hidden {
+      display: none;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="password-section">
+    <h2>Enter Password</h2>
+    <input type="password" id="password-input" placeholder="Password">
+    <button onclick="checkPassword()">Submit</button>
+  </div>
+
+  <div id="button-section" class="hidden">
+    <button onclick="confirmNavigation()">Go To Page</button>
+  </div>
+
+  <script>
+    const correctPassword = "82408";
+
+    function checkPassword() {
+      const passwordInput = document.getElementById("password-input").value;
+      if (passwordInput === correctPassword) {
+        document.getElementById("password-section").classList.add("hidden");
+        document.getElementById("button-section").classList.remove("hidden");
+      } else {
+        alert("Incorrect password. Try again.");
+      }
+    }
+
+    function confirmNavigation() {
+      const confirmAction = confirm("Are you sure you want to proceed?");
+      if (confirmAction) {
+        // Redirect to the desired page
+        window.location.href = "https://tvguyx.github.io/FreeTV/Embed/TEST/2.html"; // Replace with your page URL
+      }
+    }
+  </script>
+</body>
+</html>
