@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP4 Player with Plyr</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css">
+    <script src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            text-align: center;
+        }
+        .player-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+        }
+        #quality-display {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        #resume-container {
+            margin-top: 10px;
+        }
+        #quality-selector {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <video id="video" controls crossorigin="anonymous">
+            <source id="video-source" src="" type="video/mp4">
+        </video>
+        <div id="quality-display">Auto</div>
+    </div>
+    <div id="resume-container" style="display:none;">
+        <button onclick="resumePlayback()">Resume</button>
+        <button onclick="restartPlayback()">Restart</button>
+    </div>
+    <div id="quality-selector">
+        <label for="quality">Select Quality:</label>
+        <select id="quality" onchange="changeQuality(this.value)">
+            <option value="4K">4K</option>
+            <option value="2K">2K</option>
+            <option value="Full HD">Full HD</option>
+            <option value="HD" selected>HD</option>
+        </select>
+    </div>
+
+    <script>
+        const video = document.getElementById("video");
+        const videoSource = document.getElementById("video-source");
+        const qualityDisplay = document.getElementById("quality-display");
+        const resumeContainer = document.getElementById("resume-container");
+
+        // Define MP4 URLs for different qualities
+        const qualityLevels = {
+            "4K": "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4",
+            "2K": "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4",
+            "Full HD": "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4",
+            "HD": "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4"
+        };
+
+        function loadPlayer() {
+            const savedTime = localStorage.getItem("videoTime");
+            if (savedTime) {
+                resumeContainer.style.display = "block";
+            }
+            
+            // Set default quality to HD
+            changeQuality("HD");
+
+            video.addEventListener("timeupdate", () => {
+                localStorage.setItem("videoTime", video.currentTime);
+            });
+        }
+
+        function changeQuality(quality) {
+            const currentTime = video.currentTime;
+            const isPlaying = !video.paused;
+            
+            videoSource.src = qualityLevels[quality];
+            video.load();
+
+            if (isPlaying) {
+                video.play();
+            }
+            video.currentTime = currentTime;
+
+            qualityDisplay.innerText = quality;
+        }
+
+        function resumePlayback() {
+            video.currentTime = localStorage.getItem("videoTime");
+            video.play();
+            resumeContainer.style.display = "none";
+        }
+
+        function restartPlayback() {
+            localStorage.removeItem("videoTime");
+            video.currentTime = 0;
+            video.play();
+            resumeContainer.style.display = "none";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadPlayer();
+            new Plyr(video);
+        });
+    </script>
+</body>
+</html>
