@@ -49,8 +49,6 @@
     <div id="quality-selector">
         <label for="quality">Select Quality:</label>
         <select id="quality" onchange="changeQuality(this.value)">
-            <option value="4K">4K</option>
-            <option value="2K">2K</option>
             <option value="Full HD">Full HD</option>
             <option value="HD" selected>HD</option>
         </select>
@@ -64,10 +62,8 @@
 
         // Define MP4 URLs for different qualities
         const qualityLevels = {
-            "4K": "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4",
-            "2K": "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4",
-            "Full HD": "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4",
-            "HD": "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4"
+            "Full HD": "http://ec2-3-147-127-133.us-east-2.compute.amazonaws.com:8080/WE%20DONT%20TALK%20ABOUT/School%20TV/Movies/Scary%20Movie%20%282000%29/Scary.Movie.2000.1080p.BluRay.x264.AAC5.1-%5BYTS.MX%5D.mp4",
+            "HD": ""
         };
 
         function loadPlayer() {
@@ -76,8 +72,8 @@
                 resumeContainer.style.display = "block";
             }
             
-            // Set default quality to HD
-            changeQuality("HD");
+            // Set default quality to FHD
+            changeQuality("Full HD");
 
             video.addEventListener("timeupdate", () => {
                 localStorage.setItem("videoTime", video.currentTime);
