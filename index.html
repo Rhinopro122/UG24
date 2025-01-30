@@ -422,6 +422,80 @@ body {
             height: 500px;
             border: none;
         }
+
+        /* Overlay background */
+        #warningOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        /* Warning box */
+        #warningBox {
+            background: white;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 15px red;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        /* Pulsing animation */
+        @keyframes pulse {
+            from {
+                box-shadow: 0 0 15px red;
+            }
+            to {
+                box-shadow: 0 0 25px yellow;
+            }
+        }
+
+        /* Warning text */
+        #warningText {
+            font-size: 20px;
+            font-weight: bold;
+            color: red;
+        }
+
+        /* Buttons */
+        .warningButton {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        #okButton {
+            background-color: green;
+            color: white;
+        }
+
+        #copyButton {
+            background-color: blue;
+            color: white;
+        }
+
+        #okButton:hover {
+            background-color: darkgreen;
+        }
+
+        #copyButton:hover {
+            background-color: darkblue;
+        }
+    
     </style>
 </head>
 <body>
@@ -467,17 +541,19 @@ body {
 
     </header>
 
-   <!-- Popup HTML -->
-<div class="popup-overlay" id="popupOverlay">
-    <div class="popup-box">
-        <button class="popup-close" id="popupClose">&times;</button>
-        <h2>Help Make UG24 Better!</h2>
-        <p>Request anything you want by filling out the form below:</p>
-        <iframe class="google-form" 
-                src="https://docs.google.com/forms/d/e/1FAIpQLScEQ39K6l1Q78V8Ydevc3cFhhIpTs4aJll1IX08-PFhcCPy9g/viewform?usp=dialog">
-        </iframe>
+   <!-- Warning Popup -->
+    <div id="warningOverlay">
+        <div id="warningBox">
+            <p id="warningText">
+                ⚠️ **WARNING:** This website may be banned on **February 4th, 2025**.  
+                Please switch to the new app before the deadline at:  
+                <strong>http://ug24.infinityfreeapp.com/</strong>  
+                If the ban is lifted, you can switch back, but act now before it's too late! Sorry for the inconvenience.
+            </p>
+            <button class="warningButton" id="copyButton">Copy New Link</button>
+            <button class="warningButton" id="okButton">OK</button>
+        </div>
     </div>
-</div>
 
     <section id="featured">
         <!-- Rotating banner for featured content -->
@@ -1784,6 +1860,22 @@ body {
   </div>
 </div>
 
+    <script>
+        // Close the warning when "OK" is clicked
+        document.getElementById("okButton").addEventListener("click", function() {
+            document.getElementById("warningOverlay").style.display = "none";
+        });
+
+        // Copy the new link to clipboard
+        document.getElementById("copyButton").addEventListener("click", function() {
+            navigator.clipboard.writeText("http://ug24.infinityfreeapp.com/").then(function() {
+                alert("Link copied to clipboard!");
+            }).catch(function(err) {
+                alert("Failed to copy link: " + err);
+            });
+        });
+    </script>
+    
     <script>window.onscroll = function() {
         scrollFunction();
     };
